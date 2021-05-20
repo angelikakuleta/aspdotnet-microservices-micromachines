@@ -14,7 +14,7 @@ namespace MicroMachines.Catalog.API.Controllers
     {
         private readonly IProductRepository _repository;
 
-        public ProductsController(IProductRepository repository, ICategoryRepository categories)
+        public ProductsController(IProductRepository repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }    
