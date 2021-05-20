@@ -1,11 +1,11 @@
-﻿using Catalog.API.Data;
-using Catalog.API.Entities;
+﻿using MicroMachines.Catalog.API.Data;
+using MicroMachines.Catalog.API.Entities;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Catalog.API.Repositories
+namespace MicroMachines.Catalog.API.Repositories
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {

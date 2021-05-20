@@ -1,9 +1,9 @@
-﻿using Catalog.API.Entities;
+﻿using MicroMachines.Catalog.API.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Catalog.API.Repositories
+namespace MicroMachines.Catalog.API.Repositories
 {
     public interface IBaseRepository<T> where T : Entity
     {

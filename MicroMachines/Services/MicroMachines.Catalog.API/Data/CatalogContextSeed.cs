@@ -1,9 +1,9 @@
-﻿using Catalog.API.Entities;
+﻿using MicroMachines.Catalog.API.Entities;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 
-namespace Catalog.API.Data
+namespace MicroMachines.Catalog.API.Data
 {
     internal static class CatalogContextSeed
     {

@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace Catalog.API.Entities
+namespace MicroMachines.Catalog.API.Entities
 {
     public class Entity
     {

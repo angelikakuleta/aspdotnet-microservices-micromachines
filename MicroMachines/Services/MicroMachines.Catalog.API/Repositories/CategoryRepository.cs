@@ -1,8 +1,8 @@
-﻿using Catalog.API.Data;
-using Catalog.API.Entities;
+﻿using MicroMachines.Catalog.API.Data;
+using MicroMachines.Catalog.API.Entities;
 using System;
 
-namespace Catalog.API.Repositories
+namespace MicroMachines.Catalog.API.Repositories
 {
     public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {

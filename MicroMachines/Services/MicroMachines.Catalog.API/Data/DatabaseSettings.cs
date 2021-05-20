@@ -1,4 +1,4 @@
-﻿namespace Catalog.API.Data
+﻿namespace MicroMachines.Catalog.API.Data
 {
     public class DatabaseSettings
     {
