@@ -6,6 +6,9 @@ services:
 
   basketdb:
     image: redis
+  
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2017-latest
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
@@ -19,5 +22,12 @@ services:
       context: .
       dockerfile: Services/MicroMachines.Basket.API/Dockerfile
 
+  shopping.api:
+    image: ${DOCKER_REGISTRY-}shoppingapi
+    build:
+      context: .
+      dockerfile: Services/Shopping/MicroMachines.Shopping.API/Dockerfile
+
 volumes:
   catalogdb_data:
+
