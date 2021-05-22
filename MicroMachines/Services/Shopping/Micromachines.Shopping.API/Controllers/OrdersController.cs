@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using MicroMachines.Shopping.Domain.Entities;
-using MicroMachines.MicroMachines.Shopping.Domain.Interfaces;
+using MediatR;
+using MicroMachines.Shopping.API.Queries;
+using MicroMachines.Shopping.API.Commands;
 
 namespace MicroMachines.Shopping.API.Controllers
 {
@@ -11,11 +13,11 @@ namespace MicroMachines.Shopping.API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderRepository _repository;
+        private readonly IMediator _mediator;
 
-        public OrdersController(IOrderRepository repository)
+        public OrdersController(IMediator mediator)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         [HttpGet("id:Guid", Name = "GetOrder")]
@@ -23,10 +25,16 @@ namespace MicroMachines.Shopping.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Order>> GetOrder(Guid id)
         {
-            var order = await _repository.GetSingle(id);
-            if (order == null) return NotFound();
+            var result = await _mediator.Send(new GetOrderQuery(id));
+            return result == null ? NotFound() : Ok(result);
+        }
 
-            return Ok(order);
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        public async Task<ActionResult<Guid>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

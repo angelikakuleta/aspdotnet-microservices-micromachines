@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ using Microsoft.OpenApi.Models;
 using MicroMachines.Shopping.Infrastructure.Data;
 using MicroMachines.Shopping.Infrastructure.Repositories;
 using MicroMachines.MicroMachines.Shopping.Domain.Interfaces;
+using System.Reflection;
+using FluentValidation.AspNetCore;
 
 namespace MicroMachines.Shopping.API
 {
@@ -25,13 +28,17 @@ namespace MicroMachines.Shopping.API
             services.AddDbContext<OrderContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("OrderConnectionString")));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroMachines.Shopping.API", Version = "v1" });
             });
 
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
