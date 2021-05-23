@@ -1,0 +1,48 @@
+actor Client
+participant Basket
+participant Whishlist
+participant Shopping
+
+participant Transfer
+participant Catalog
+
+Client->Basket:add product
+Basket->Catalog:get available stock of product
+Basket<--Catalog:response with available stock
+
+Client<--Basket:response with status
+Client->Basket:checkout basket
+Basket->Transfer:check balance
+Basket<--Transfer:response with balance
+
+alt case 1
+Basket->Shopping:send BasketChackoutAcceptedEvent
+Shopping->Shopping:create new order
+Basket<--Shopping:send OrderCreatedEvent
+Basket->Basket:delete basket
+Shopping->Transfer:send CreatedPaymentOrderEvent
+
+alt case 1
+Catalog<--Transfer:send OrderPaymentSucceededEvent
+
+alt case 1
+Shopping<--Catalog:send PurchaseFromStockConfirmedEvent
+Shopping->Shopping:change status to confirmed
+else case 2
+Transfer<#red--Catalog:send PurchaseFromStockRejectedEvent
+Transfer-->Shopping:send OrderPaymentWithdrawnEvent
+Shopping->Shopping:change status to denied
+end
+
+else case 2
+Shopping<#red--Transfer:send OrderPaymentFailedEvent
+Shopping->Shopping:change status to canceled
+end
+
+else case 2
+Basket->Whishlist:send BaskedCheckoutRejectedEvent
+Whishlist->Whishlist:add to whishlist
+Basket<--Whishlist:send AddedToWhishlistEvent
+Basket->Basket:delete basket
+end 
+
