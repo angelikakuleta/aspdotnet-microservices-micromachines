@@ -6,12 +6,13 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["Services/Shopping/Shopping.API/MicroMachines.Shopping.API.csproj", "Services/Shopping/Shopping.API/"]
-COPY ["Services/Shopping/Shopping.Infrastructure/MicroMachines.Shopping.Infrastructure.csproj", "Services/Shopping/Shopping.Infrastructure/"]
-COPY ["Services/Shopping/Shopping.Domain/MicroMachines.Shopping.Domain.csproj", "Services/Shopping/Shopping.Domain/"]
-RUN dotnet restore "Services/Shopping/Shopping.API/MicroMachines.Shopping.API.csproj"
+COPY ["Services/Shopping/Micromachines.Shopping.API/MicroMachines.Shopping.API.csproj", "Services/Shopping/Micromachines.Shopping.API/"]
+COPY ["Services/Shopping/Micromachines.Shopping.Domain/MicroMachines.Shopping.Domain.csproj", "Services/Shopping/Micromachines.Shopping.Domain/"]
+COPY ["Common/MicroMachines.EventBus/MicroMachines.EventBus.csproj", "Common/MicroMachines.EventBus/"]
+COPY ["Services/Shopping/Micromachines.Shopping.Infrastructure/MicroMachines.Shopping.Infrastructure.csproj", "Services/Shopping/Micromachines.Shopping.Infrastructure/"]
+RUN dotnet restore "Services/Shopping/Micromachines.Shopping.API/MicroMachines.Shopping.API.csproj"
 COPY . .
-WORKDIR "/src/Services/Shopping/Shopping.API"
+WORKDIR "/src/Services/Shopping/Micromachines.Shopping.API"
 RUN dotnet build "MicroMachines.Shopping.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

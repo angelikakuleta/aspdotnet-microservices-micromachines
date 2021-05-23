@@ -24,7 +24,7 @@ namespace MicroMachines.Transfer.API.Data
             {
                 new Account()
                 {
-                    Id = Guid.Parse("5d4392b6-9a5a-4cee-8f89-37330b9bb47c"),
+                    Id = Guid.Parse("5d4392b6-9a5a-4cee-8f89-37330b9bb48c"),
                     UserId = Guid.Parse("05559eb9-3653-4587-9b71-90953ef41d43"),
                     Balance = 0,
                     IsClosed = true

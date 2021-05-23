@@ -57,8 +57,9 @@ namespace MicroMachines.Shopping.Infrastructure.Repositories
             return await GetSingle(entity.Id);
         }
 
-        public async Task Delete(Order entity)
+        public async Task Delete(Guid id)
         {
+            var entity = await _context.Orders.FindAsync(id);
             _context.Orders.Remove(entity);
             await Save();
         }

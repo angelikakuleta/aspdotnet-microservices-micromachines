@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\MicroMachines.EventBus\MicroMachines.EventBus.csproj" />
     <ProjectReference Include="..\Micromachines.Shopping.Domain\MicroMachines.Shopping.Domain.csproj" />
     <ProjectReference Include="..\Micromachines.Shopping.Infrastructure\MicroMachines.Shopping.Infrastructure.csproj" />
   </ItemGroup>

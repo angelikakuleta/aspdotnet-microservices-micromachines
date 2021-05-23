@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace MicroMachines.Catalog.API.Clients
+namespace MicroMachines.Basket.API.Clients
 {
     public interface ICatalogClient
     {

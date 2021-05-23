@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace MicroMachines.Catalog.API.Clients
+namespace MicroMachines.Basket.API.Clients
 {
     public class CatalogClient : ICatalogClient
     {

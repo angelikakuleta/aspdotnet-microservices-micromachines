@@ -12,6 +12,6 @@ namespace MicroMachines.MicroMachines.Shopping.Domain.Interfaces
         Task<IEnumerable<Order>> GetByUser(Guid userId);
         Task<Order> GetSingle(Guid id);
         Task<Order> Add(Order entity);
-        Task Delete(Order entity);
+        Task Delete(Guid id);
     }
 }

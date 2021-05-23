@@ -23,13 +23,13 @@ namespace MicroMachines.Shopping.API.Extensions
 
                 try
                 {
-                    logger.LogInformation("Migrating database associated with context OrderContext", typeof(TContext).Name);
+                    logger.LogInformation("Migrating database associated with context {context}", typeof(TContext).Name);
                     InvokeSeeder(seeder, context, services);
-                    logger.LogInformation("Migrated database associated with context OrderContext", typeof(TContext).Name);
+                    logger.LogInformation("Migrated database associated with context {context}", typeof(TContext).Name);
                 }
                 catch (SqlException ex)
                 {
-                    logger.LogError(ex, "An error occurred while migrating the database used on context OrderContext", typeof(TContext).Name);
+                    logger.LogError(ex, "An error occurred while migrating the database used on context {context}", typeof(TContext).Name);
 
                     if (retryForAvailability < 50)
                     {
