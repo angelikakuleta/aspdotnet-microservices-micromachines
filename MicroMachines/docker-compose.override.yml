@@ -24,9 +24,17 @@ services:
     ports:
       - "1401:1433" 
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+
   catalog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     depends_on:
       - catalogdb
@@ -37,8 +45,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
+      - "EventBus:HostName=rabbitmq"
+      - CatalogApiClient=http://catalog.api
+      - TransferApiClient=http://transfer.api
     depends_on:
       - basketdb
+      - rabbitmq
     ports:
       - "8001:80"
 
@@ -46,8 +58,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:OrderConnectionString=Server=sqldata;Database=OrderDb;User=sa;Password=PswD12345678;"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
       - sqldata
+      - rabbitmq
     ports:
       - "8002:80"
+
+  transfer.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - "ConnectionStrings:TransferConnectionString=Server=sqldata;Database=TransferDb;User=sa;Password=PswD12345678;"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - sqldata
+      - rabbitmq
+    ports:
+      - "8003:80"
 

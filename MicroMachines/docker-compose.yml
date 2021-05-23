@@ -10,6 +10,9 @@ services:
   sqldata:
     image: mcr.microsoft.com/mssql/server:2017-latest
 
+  rabbitmq:
+    image: rabbitmq:3-management
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -28,6 +31,11 @@ services:
       context: .
       dockerfile: Services/Shopping/MicroMachines.Shopping.API/Dockerfile
 
+  transfer.api:
+    image: ${DOCKER_REGISTRY-}transferapi
+    build:
+      context: .
+      dockerfile: Services/MicroMachines.Transfer.API/Dockerfile
+
 volumes:
   catalogdb_data:
-
